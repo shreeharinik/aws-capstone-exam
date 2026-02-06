@@ -1,0 +1,15 @@
+- hosts: web
+  become: yes
+  tasks:
+    - name: Install packages
+      apt:
+        name:
+          - apache2
+          - php
+          - git
+        update_cache: yes
+
+    - name: Deploy app
+      copy:
+        src: app/v1/
+        dest: /var/www/html/
