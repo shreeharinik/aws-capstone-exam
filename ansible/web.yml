@@ -6,10 +6,20 @@
         name:
           - apache2
           - php
-          - git
+        state: present
         update_cache: yes
+
+    - name: Start Apache
+      service:
+        name: apache2
+        state: started
+        enabled: yes
 
     - name: Deploy app
       copy:
-        src: app/v1/
-        dest: /var/www/html/
+        dest: /var/www/html/index.php
+        content: |
+          <?php
+          echo "<h1>Welcome to Streamline - v1</h1>";
+          echo "<p>Server IP: " . $_SERVER['SERVER_ADDR'] . "</p>";
+          ?>
